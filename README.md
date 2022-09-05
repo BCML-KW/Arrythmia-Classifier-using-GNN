@@ -14,5 +14,5 @@
 2. run main.py
 
 ## Notice
-- The dataset used MIT-BIH arrhythmia dataset, it is refined in the BCML lab. (Sharing is difficult.)
-- Instead, [there](https://github.com/kaintels/GNN-classifier-test) is an example code.
+- The dataset used MIT-BIH arrhythmia dataset, it is refined in the BCML-KW. (Sharing is difficult.)
+- Instead, [there](https://github.com/kaintels/GNN-classifier-test) is an example code (breast cancer).
