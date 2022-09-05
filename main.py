@@ -7,7 +7,9 @@ import dgl
 from glob import glob
 from dgl.nn.pytorch import GraphConv
 from models.model import GraphConvNet
-from utils.util import get_feature_and_label, laplacian_mat, get_graph, metrics, train_setting
+from utils.util import get_feature_and_label, laplacian_mat, get_graph, metrics, train_setting, set_device
+
+device = set_device()
 
 seed_num = 777
 EPOCH = 5000
@@ -16,7 +18,7 @@ np.random.seed(seed_num)
 torch.manual_seed(seed_num)
 dgl.seed(seed_num)
 
-model = GraphConvNet().cuda()
+model = GraphConvNet().to(device)
 
 train_path = glob("./training/*.npz")
 test_path = glob("./testing/*.npz")
@@ -48,11 +50,11 @@ for epoch in range(EPOCH):
 
 model.eval()
 with torch.no_grad():
-    out = model(test_graph, test_graph.ndata['x'])
-    acc_metrics(out, test_graph.ndata['y'])
-    pre_metrics(out, test_graph.ndata['y'])
-    rec_metrics(out, test_graph.ndata['y'])
-    confusion(out, test_graph.ndata['y'])
+    outx = model(test_graph, test_graph.ndata['x'])
+    acc_metrics(outx, test_graph.ndata['y'])
+    pre_metrics(outx, test_graph.ndata['y'])
+    rec_metrics(outx, test_graph.ndata['y'])
+    confusion(outx, test_graph.ndata['y'])
 
 print('Test Accuracy: ', 100.*acc_metrics.compute().item(), "%")
 print('Test each Pre: ', 100.*pre_metrics.compute())
