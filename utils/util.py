@@ -4,6 +4,15 @@ import torch
 import dgl
 from torchmetrics import Accuracy, F1Score, ConfusionMatrix, Precision, Recall
 
+def set_device():
+    if torch.cuda.is_available():
+        device = torch.device('cuda')
+    else:
+        device = torch.device('cpu')
+    return device
+
+device = set_device()
+
 def get_feature_and_label(path):
     feature = []
     label = []
@@ -34,15 +43,15 @@ def get_graph(laplacian, feature, label):
     data.ndata['x'] = x
     data.ndata['y'] = y
     data = dgl.add_self_loop(data)
-    return data.to("cuda:0")
+    return data.to(device)
 
 
 def metrics(num_class=3):
-    acc_metrics = Accuracy().cuda()
-    pre_metrics = Precision(num_classes=num_class,average=None).cuda()
-    rec_metrics = Recall(num_classes=num_class,average=None).cuda()
-    f1_metrics = F1Score(num_classes=num_class,average="macro").cuda()
-    confusion = ConfusionMatrix(num_classes=num_class).cuda()
+    acc_metrics = Accuracy().to(device)
+    pre_metrics = Precision(num_classes=num_class,average=None).to(device)
+    rec_metrics = Recall(num_classes=num_class,average=None).to(device)
+    f1_metrics = F1Score(num_classes=num_class,average="macro").to(device)
+    confusion = ConfusionMatrix(num_classes=num_class).to(device)
 
     return acc_metrics, pre_metrics, rec_metrics, f1_metrics, confusion
 
