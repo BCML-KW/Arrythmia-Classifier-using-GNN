@@ -10,7 +10,7 @@
 - torchmetrics
 
 ## How to execute 
-1. put data into training and testing folder (```npz file``` recommend)
+1. put data into training and testing folder (data format : ```npz file```)
 2. run main.py
 
 ## Notice
