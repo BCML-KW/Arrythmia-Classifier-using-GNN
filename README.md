@@ -12,3 +12,7 @@
 ## How to execute 
 1. put data into training and testing folder (```npz file``` recommend)
 2. run main.py
+
+## Notice
+- The dataset used MIT-BIH arrhythmia dataset, it is refined in the BCML lab. (Sharing is difficult.)
+- Instead, [there](https://github.com/kaintels/GNN-classifier-test) is an example code.
